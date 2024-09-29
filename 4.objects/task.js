@@ -7,28 +7,27 @@ function Student(name, gender, age) {
   
 }
 
-let students = new Student(name, gender, age);
-
 Student.prototype.setSubject = function (subjectName) {
   this.subject = subjectName;
 }
 
+
 Student.prototype.addMarks = function (...marks) {
-  if (this.marks.length >= 0){
+  if (this.marks === undefined && this.excluded !== undefined ){
+    return 0;
+  } else {
     this.marks.push(...marks);
   }
 }
 
+let average = 0;
+let summ = 0;
+
 Student.prototype.getAverage = function () {
-  if (marks.length < 1){
+  if (this.marks === undefined || this.marks.length == 0) {
     return 0;
   } else {
-    for (let i = 0; i < marks.length; i++){
-        let sum = 0;
-        sum += marks[i];
-        let average = sum / (i+1); 
-    }
-    return this.average;
+    return this.marks.reduce( ( a, v ) => a + v, 0 ) / this.marks.length;
   }
 }
 
@@ -37,3 +36,4 @@ Student.prototype.exclude = function (reason) {
     delete this.marks;
     this.excluded = reason;  
 }
+
